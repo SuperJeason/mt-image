@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "图床",
+  "version": "1.0",
+  "description": "A Vue 3 browser extension.",
+  "action": {
+    "default_icon": "icon.png"
+  },
+  "permissions": ["activeTab"]
+}

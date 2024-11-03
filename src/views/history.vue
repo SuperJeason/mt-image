@@ -32,6 +32,12 @@
             </div>
         </el-dialog>
     </div>
+    <el-backtop :bottom="100" class=" backtop-circle" visibility-height="0" @click="goBackHome()">
+        <el-icon>
+            <House />
+        </el-icon>
+    </el-backtop>
+    <el-backtop class=" backtop-circle" :right="100" :bottom="100" />
 </template>
 
 
@@ -39,15 +45,16 @@
 import { ref, onMounted } from 'vue';
 import { Waterfall } from 'vue-waterfall-plugin-next';
 import 'vue-waterfall-plugin-next/dist/style.css';
-import { getOneWordService } from '@/api/request'
 import { ElMessageBox, ElMessage } from 'element-plus';
 import { inject } from 'vue';
+import { useRouter } from 'vue-router';
 export default {
     setup() {
         const reload = inject('reload'); // 注入 reload 方法
         const list = ref([]);  // 使用 ref 创建响应式列表
         const dialogImageUrl = ref('');
         const dialogVisible = ref(false);
+        const router = useRouter();
 
         const loadItemsFromLocalStorage = () => {
             const storedItems = JSON.parse(localStorage.getItem('uploadedFiles') || '[]');
@@ -80,7 +87,10 @@ export default {
                     });
                 });
         };
-
+        const goBackHome = () => {
+            console.log("回到主页")
+            router.push('/');
+        };
         const deleteItem = (itemSrc) => {
             ElMessageBox.confirm('您确定要删除这个链接吗？', '警告', {
                 confirmButtonText: '确定',
@@ -99,7 +109,7 @@ export default {
 
                 console.log(list.value);
                 // 提示用户删除成功
-                reload(); 
+                reload();
                 ElMessage({
                     message: '链接已删除！',
                     type: 'success',
@@ -125,6 +135,7 @@ export default {
             showImage,
             copyLink,
             deleteItem,
+            goBackHome,
         };
     },
 };
@@ -141,6 +152,7 @@ const formatDate = (time) => {
     });
 };
 
+
 </script>
 
 
@@ -152,6 +164,38 @@ const formatDate = (time) => {
     /* 使用 flex 布局 */
     gap: 10px;
     /* 设置图标之间的间距 */
+}
+
+
+.backtop-circle {
+    width: 40px;
+    /* 按钮宽度 */
+    height: 40px;
+    /* 按钮高度 */
+    border-radius: 50%;
+    /* 圆形按钮 */
+    background-color: rgba(39, 25, 48, 0.7);
+    /* 半透明背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    /* 过渡效果 */
+}
+
+.backtop-circle:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+    /* 悬停时加深颜色 */
+    transform: scale(1.1);
+    /* 悬停时放大 */
+}
+
+.backtop-circle el-icon {
+    color: white;
+    /* 图标颜色 */
+    font-size: 24px;
+    /* 图标大小 */
 }
 
 
