@@ -38,7 +38,7 @@ export const uploadFileToServerService = async (file) => {
     try {
         const response = await axios.post('https://pic-up.meituan.com/extrastorage/new/video?isHttps=true', formData, {
             headers: {
-                'token': 'AgFgJGo9QvCAGivDwhosgc_8EKXcc7qEd6-9b1vTouUTxU5ylBVnXb_Zx1-4a7Y7lcCIL6Mw-oY28QAAAADoIwAAuHTMayhCRZZ4RUpkD2e2NtWuuk4n-yCPQAxdtpL8Vu4bb0K36ucPguaapdZi1vcn',
+                'token': 'token',
             }
         });
         return response.data.data.originalLink; // 返回上传的链接
